@@ -13,6 +13,15 @@ El estado de cada juego se debe ir almacenando en una base de datos de MonogoDB 
 
 El servidor es responsable de contener y administrar todo el estado de los juegos. Los clientes pueden solicitar en cualquier momento al servidor toda la información que tengan permitido conocer (cuáles son sus cartas, cuál es su puntaje, de quién es el turno actual, el puntaje de la casa, etc.)
 
-Se inicializa con el comando: 
+Se crea dentro del folder "backend/" con el comando: 
 ### `npm init -y`
 
+## Cliente web (frontend)
+Se debe desarrollar una SPA (Single-Page Application) responsiva usando HTML, W3.CSS, JavaScript y React.
+
+Durante el juego la interacción del cliente con el servidor debe realizarse utilizando React. Como formato de intercambio de datos se debe usar JSON.
+
+Verifica que la página resultante sea HTML5 válido utilizando el Servicio de Validación de W3C.
+
+Se crea dentro de la raiz del proyecto con el comando: 
+### `npx create-react-app frontend`
