@@ -1,11 +1,18 @@
 # BlackJack21
-Eric Gómez Vázquez <----> A01378838
-Rafael Moreno Cañas <----> A01378916
-Ricardo Velazquez Rios <----> A01746958
+Eric Gómez Vázquez <----> A01378838 </br>
+Rafael Moreno Cañas <----> A01378916 </br>
+Ricardo Velazquez Rios <----> A01746958 </br>
 
-## Available Scripts
+## Descripción 
+Desarollo de una aplicación web que implemente el juego de BlackJack21 (ver reglas más adelante). El juego debe permitir que uno o más grupos de jugadores, jueguen de forma simultánea.
 
-In the project directory, you can run:
+## Servidor web (backend)
+Debe ser implementado como un conjunto de servicios Web escritos en Node y el framework de Express.
 
-### `npm start`
+El estado de cada juego se debe ir almacenando en una base de datos de MonogoDB y su acceso se debe hacer mediante el ODM(Object-Document Mapper) Mongoose.
+
+El servidor es responsable de contener y administrar todo el estado de los juegos. Los clientes pueden solicitar en cualquier momento al servidor toda la información que tengan permitido conocer (cuáles son sus cartas, cuál es su puntaje, de quién es el turno actual, el puntaje de la casa, etc.)
+
+Se inicializa con el comando: 
+### `npm init -y`
 
