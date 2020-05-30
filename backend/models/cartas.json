@@ -1,0 +1,65 @@
+{
+  idJuego: "",
+  
+  cartas:[
+    
+  {"id":"","carta":"As","valor":1,"mazo":"Corazones"},
+  {"id":"","carta":"2","valor":2,"mazo":"Corazones"},
+  {"id":"","carta":"3","valor":3,"mazo":"Corazones"},
+  {"id":"","carta":"4","valor":4,"mazo":"Corazones"},
+  {"id":"","carta":"5","valor":5,"mazo":"Corazones"},
+  {"id":"","carta":"6","valor":6,"mazo":"Corazones"},
+  {"id":"","carta":"7","valor":7,"mazo":"Corazones"},
+  {"id":"","carta":"8","valor":8,"mazo":"Corazones"},
+  {"id":"","carta":"9","valor":9,"mazo":"Corazones"},
+  {"id":"","carta":"10","valor":10,"mazo":"Corazones"},
+  {"id":"","carta":"J","valor":10,"mazo":"Corazones"},
+  {"id":"","carta":"Q","valor":10,"mazo":"Corazones"},
+  {"id":"","carta":"K","valor":10,"mazo":"Corazones"},
+  
+  {"id":"","carta":"As","valor":1,"mazo":"Treboles"},
+  {"id":"","carta":"2","valor":2,"mazo":"Treboles"},
+  {"id":"","carta":"3","valor":3,"mazo":"Treboles"},
+  {"id":"","carta":"4","valor":4,"mazo":"Treboles"},
+  {"id":"","carta":"5","valor":5,"mazo":"Treboles"},
+  {"id":"","carta":"6","valor":6,"mazo":"Treboles"},
+  {"id":"","carta":"7","valor":7,"mazo":"Treboles"},
+  {"id":"","carta":"8","valor":8,"mazo":"Treboles"},
+  {"id":"","carta":"9","valor":9,"mazo":"Treboles"},
+  {"id":"","carta":"10","valor":10,"mazo":"Treboles"},
+  {"id":"","carta":"J","valor":10,"mazo":"Treboles"},
+  {"id":"","carta":"Q","valor":10,"mazo":"Treboles"},
+  {"id":"","carta":"K","valor":10,"mazo":"Treboles"},
+  
+  {"id":"","carta":"As","valor":1,"mazo":"Espadas"},
+  {"id":"","carta":"2","valor":2,"mazo":"Espadas"},
+  {"id":"","carta":"3","valor":3,"mazo":"Espadas"},
+  {"id":"","carta":"4","valor":4,"mazo":"Espadas"},
+  {"id":"","carta":"5","valor":5,"mazo":"Espadas"},
+  {"id":"","carta":"6","valor":6,"mazo":"Espadas"},
+  {"id":"","carta":"7","valor":7,"mazo":"Espadas"},
+  {"id":"","carta":"8","valor":8,"mazo":"Espadas"},
+  {"id":"","carta":"9","valor":9,"mazo":"Espadas"},
+  {"id":"","carta":"10","valor":10,"mazo":"Espadas"},
+  {"id":"","carta":"J","valor":10,"mazo":"Espadas"},
+  {"id":"","carta":"Q","valor":10,"mazo":"Espadas"},
+  {"id":"","carta":"K","valor":10,"mazo":"Espadas"},
+  
+  {"id":"","carta":"As","valor":1,"mazo":"Diamantes"},
+  {"id":"","carta":"2","valor":2,"mazo":"Diamantes"},
+  {"id":"","carta":"3","valor":3,"mazo":"Diamantes"},
+  {"id":"","carta":"4","valor":4,"mazo":"Diamantes"},
+  {"id":"","carta":"5","valor":5,"mazo":"Diamantes"},
+  {"id":"","carta":"6","valor":6,"mazo":"Diamantes"},
+  {"id":"","carta":"7","valor":7,"mazo":"Diamantes"},
+  {"id":"","carta":"8","valor":8,"mazo":"Diamantes"},
+  {"id":"","carta":"9","valor":9,"mazo":"Diamantes"},
+  {"id":"","carta":"10","valor":10,"mazo":"Diamantes"},
+  {"id":"","carta":"J","valor":10,"mazo":"Diamantes"},
+  {"id":"","carta":"Q","valor":10,"mazo":"Diamantes"},
+  {"id":"","carta":"K","valor":10,"mazo":"Diamantes"}
+  
+    
+  ]
+  
+}
