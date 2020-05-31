@@ -7,24 +7,13 @@ import { Link } from 'react-router-dom'
 import 'w3-css/w3.css';
 import '../style.css';
 
-function Popup () {
-  return(
-    <div className='popup'>
-      <div className='popup_inner'>
-        <h1>{this.props.text}</h1>
-        <button onClick={this.props.closePopup}>close me</button>
-      </div>
-    </div>
-      )
-}
 
 class CreateGame extends React.Component{
     constructor() {
       super();
       this.state = {
-      showPopup: false,
       user: "",
-      game_pin: ""
+      pin_game: ""
       }
     }
     
@@ -45,37 +34,27 @@ class CreateGame extends React.Component{
               </a>
             </div>
             
-            <div style={{backgroundColor: "#857671"}} className="w3-container w3-center">
-              
-              <div className="w3-container w3-center">
-                <h1 className="w3-center"> <strong>Create Game</strong> </h1>
-                <img style={{width: "100%" , "max-width": "500px"}} src={create} className="w3-round w3-image" alt="Norway"/>
-              </div>
-              <br/>
-              
-              <div className="w3-container w3-center w3-mobile">
-                <form style={{backgroundColor: "#e2ded3", "max-width": "50%"}} className="w3-mobile w3-container w3-card w3-margin">
-                  <div className="w3-row w3-section">
-                    <div className="w3-col" style={{width:"50px"}}><i className="w3-mobile w3-xxlarge fa fa-user"></i></div>
-                      <div style={{"max-width":"400px"}} className="w3-rest w3-mobile">
-                        <input className="w3-input w3-mobile w3-border" name="first" type="text" placeholder="NickName"/>
-                      </div>
-                  </div>
-                  <div className="w3-row w3-section">
-                    <div className="w3-col" style={{width:"50px"}}><i class="w3-mobile w3-xxlarge fas fa-key"></i></div>
-                      <div className="w3-rest w3-mobile" style={{"max-width":"400px"}}>
-                        <input className="w3-input w3-mobile w3-border" name="Game PIN" type="number" placeholder="Game PIN"/>
-                      </div>
-                  </div>
-                  <div className="w3-center">
-                    <button className="w3-button w3-center w3-section w3-blue w3-ripple w3-padding">
-                      <i className="w3-xxlarge fas fa-gamepad"></i><br/> Start Game
-                    </button>
-                  </div>
-                </form>
-                <br/>
-                <br/>
-              </div>
+            <div className="w3-container w3-blue-gray">
+              <h1 className="w3-center"><strong>Create Game</strong></h1>
+            </div>
+            
+            <div className = "w3-container w3-center w3-margin">
+              <img style={{width: "100%" , "max-width": "500px"}} src={create} className="w3-round  w3-image" alt="Norway"/>
+            </div>
+            
+            <div className="w3-container">
+              <form class="w3-container w3-margin">
+                
+                <label class="w3-text-blue-grey"><b>Nickname</b></label>
+                <input class="w3-margin-bottom w3-input w3-border w3-light-grey" type="text" required/>
+  
+                <label class="w3-text-blue-grey"><b>Game Pin</b></label>
+                <input class=" w3-margin-bottom w3-input w3-border w3-light-grey" type="number" required/>
+                
+                <div className="w3-center">
+                  <button class="w3-btn w3-center w3-teal"><h5>JOIN</h5></button>
+                </div>
+              </form>
             </div>
             
             <div className ="footer2 w3-grey">

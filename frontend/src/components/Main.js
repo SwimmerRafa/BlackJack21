@@ -23,11 +23,9 @@ function Main() {
               </a>
             </div>
             
-            <div className="w3-container w3-white">
-              <div className="w3-container w3-center">
+            <div className="w3-container w3-center w3-blue-gray">
                 <h1><strong>21 Blackjack</strong> </h1>
-                <img style={{width: "50%" , "max-width": "300px"}} src={start} className="w3-round w3-image" alt="Norway"/>
-              </div>
+            </div>
               
               <div className="w3-container w3-left">
                 <h3><strong>Game Rules</strong></h3>
@@ -67,9 +65,7 @@ function Main() {
                 <h3><strong>Cards</strong></h3>
                 <img src={baraja} className="w3-round w3-margin-left w3-image w3-center" alt="Norway"/>
               </div>
-              
-            </div>
-            
+          
             
             <div className ="w3-container footer w3-grey">
               <p>
