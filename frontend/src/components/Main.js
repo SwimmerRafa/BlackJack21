@@ -4,16 +4,17 @@ import baraja from "./img/baraja.png"
 import start from "./img/juego.jpg"
 import 'w3-css/w3.css';
 import '../style.css';
+import { Link } from 'react-router-dom'
 
 function Main() {
     return (
           <div>
             <div className="w3-bar w3-grey">
               <img className="w3-bar-item" src={Logo} width="50" height="75"/>
-              <a href="#" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Home</a>
-              <a href="#" class="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create a Game1</a>
-              <a href="#" class="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join a Game</a>
-              <a class="w3-bar-item w3-button w3-round w3-right w3-blue w3-section w3-margin-right">
+              <Link to ="/" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Home</Link>
+              <Link Link to ="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
+              <Link Link to ="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
+              <a className="w3-bar-item w3-button w3-round w3-right w3-blue w3-section w3-margin-right">
                 <a href="https://github.com/SwimmerRafa/BlackJack21" className="button is-info">
                     <i className="fab fa-github"></i>
                     <strong> Github </strong>
@@ -24,7 +25,7 @@ function Main() {
             <div className="w3-container w3-white">
               <div className="w3-container w3-center">
                 <h1><strong>21 Blackjack</strong> </h1>
-                <img style={{width: "50%" , "max-width": "300px"}} src={start} class="w3-round w3-image" alt="Norway"/>
+                <img style={{width: "50%" , "max-width": "300px"}} src={start} className="w3-round w3-image" alt="Norway"/>
               </div>
               
               <div className="w3-container w3-left">
@@ -63,7 +64,7 @@ function Main() {
               
               <div className="w3-container">
                 <h3><strong>Cards</strong></h3>
-                <img src={baraja} class="w3-round w3-margin-left w3-image w3-center" alt="Norway"/>
+                <img src={baraja} className="w3-round w3-margin-left w3-image w3-center" alt="Norway"/>
               </div>
               
             </div>
