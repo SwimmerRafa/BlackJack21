@@ -24,7 +24,7 @@ class CreateGame extends React.Component{
       this.state = {
       showPopup: false,
       user: "",
-      pin_game: ""
+      game_pin: ""
       }
     }
     
@@ -53,8 +53,8 @@ class CreateGame extends React.Component{
               </div>
               <br/>
               
-              <div className="w3-container  w3-mobile">
-                <form style={{backgroundColor: "#e2ded3", width: "50%"}} className="w3-mobile w3-container w3-card-2 w3-margin">
+              <div className="w3-container w3-center w3-mobile">
+                <form style={{backgroundColor: "#e2ded3", "max-width": "50%"}} className="w3-mobile w3-container w3-card w3-margin">
                   <div className="w3-row w3-section">
                     <div className="w3-col" style={{width:"50px"}}><i className="w3-mobile w3-xxlarge fa fa-user"></i></div>
                       <div style={{"max-width":"400px"}} className="w3-rest w3-mobile">
