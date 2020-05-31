@@ -10,8 +10,9 @@ function Main() {
     return (
           <div>
             <div className="w3-bar w3-grey">
-              <img className="w3-bar-item" src={Logo} width="50" height="75"/>
-              <Link to ="/" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Home</Link>
+              <Link to ="/" className="w3-bar-item w3-button w3-grey">
+                <img className="w3-bar-item" src={Logo} width="50" height="50"/>
+              </Link>
               <Link Link to ="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
               <Link Link to ="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
               <a className="w3-bar-item w3-button w3-round w3-right w3-blue w3-section w3-margin-right">
