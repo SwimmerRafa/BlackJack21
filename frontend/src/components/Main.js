@@ -3,7 +3,6 @@ import Logo from "./img/logo.png"
 import baraja from "./img/baraja.png"
 import start from "./img/juego.jpg"
 import 'w3-css/w3.css';
-import '../style.css';
 import { Link } from 'react-router-dom'
 
 function Main() {

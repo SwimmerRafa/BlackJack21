@@ -1,22 +1,20 @@
 import React from 'react';
 import 'w3-css/w3.css';
-import '../style.css';
 import Logo from "./img/logo.png"
 import create from "./img/create.png"
 import { Link } from 'react-router-dom'
 import 'w3-css/w3.css';
-import '../style.css';
 
 
 class CreateGame extends React.Component{
-    constructor() {
-      super();
-      this.state = {
-      user: "",
-      pin_game: ""
-      }
+  constructor() {
+    super();
+    this.state = {
+    user: "",
+    pin_game: ""
     }
-    
+  }
+
   render(){ 
     return(
         <div>
@@ -52,7 +50,7 @@ class CreateGame extends React.Component{
                 <input class=" w3-margin-bottom w3-input w3-border w3-light-grey" type="number" required/>
                 
                 <div className="w3-center">
-                  <button class="w3-btn w3-center w3-teal"><h5>JOIN</h5></button>
+                  <Link to="/game" class="w3-btn w3-center w3-teal"><h5>JOIN</h5></Link>
                 </div>
               </form>
             </div>
