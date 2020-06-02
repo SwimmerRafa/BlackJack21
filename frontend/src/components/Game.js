@@ -19,6 +19,7 @@ function Game(){
           <strong>21 Game</strong>
           <h3 className="w3-right w3-margin-right"> Game Pin: </h3>
         </h1>
+        <h5>Players in the room: </h5>
       </div>
       
       <div id="game-screen">
@@ -37,11 +38,11 @@ function Game(){
           
           <div id="button-id">
             <div class="w3-bar">
-              <button class=" w3-margin w3-button w3-black">Ask </button>
-              <button class="w3-margin w3-button w3-black">Stay</button>
+              <button id="hit" class="w3-mobile 3-margin w3-btn w3-round-large">Hit</button>
+              <button id="stand" class="w3-mobile w3-margin w3-btn w3-round-large">Stand</button>
             </div>
           </div>
-            
+    
         </div>
       </div>
     </div>

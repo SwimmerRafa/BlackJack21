@@ -34,26 +34,38 @@ html, body, .app {
 }
 
 #root{
-  max-height: 90vh
+  max-height: 85.3vh
 }
 
 #game{
-  max-height: 90vh;
+  max-height: 85.3vh;
 }
 
 #game-screen{
-  max-height: 90vh;
+  max-height: 85.3vh;
 }
 
 
 #player-section{
-  height: 45vh;
+  height: 42vh;
+  color: white;
   top: 0;
-  background-color: #788878
+  background-color: #0e6253
 }
 
 #dealer-section{
-  height: 45vh;
+  height: 43.3vh;
+  color: white;
   bottom: 0;
-  background-color: #BF4040
+  background-color: #0f6b5a
+}
+
+#hit{
+  background-color: #c3342c;
+  color: white;
+}
+
+#stand{
+  background-color: #c3342c;
+  color: white;
 }
