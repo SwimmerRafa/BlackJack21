@@ -47,14 +47,14 @@ html, body, .app {
 
 
 #player-section{
-  height: 42vh;
+  height: 43.3vh;
   color: white;
   top: 0;
   background-color: #0e6253
 }
 
 #dealer-section{
-  height: 43.3vh;
+  height: 42vh;
   color: white;
   bottom: 0;
   background-color: #0f6b5a
