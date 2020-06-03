@@ -1,5 +1,6 @@
 import React from 'react';
 import 'w3-css/w3.css';
+import axios from 'axios';
 import Logo from "./img/logo.png"
 import create from "./img/create.png"
 import { Link } from 'react-router-dom'
@@ -13,6 +14,14 @@ class CreateGame extends React.Component{
     user: "",
     pin_game: ""
     }
+  }
+  
+  crearJuego(nombre){
+    axios({
+      method: 'post',
+      url: 'myurl',
+      data: {'nombre' : nombre},
+      headers: {'Content-Type': 'multipart/form-data' }})
   }
 
   render(){ 

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'w3-css/w3.css';
+import axios from 'axios';
 import Logo from "./img/logo.png"
 import create from "./img/create.png"
 import { Link } from 'react-router-dom'
@@ -12,6 +13,14 @@ class JoinGame extends React.Component{
       pin_game: ""
       }
     }
+    
+  crearJuego(idJuego, nombre){
+    axios({
+      method: 'post',
+      url: 'myurl',
+      data: {'nombre' : nombre, 'idJuego' : idJuego},
+      headers: {'Content-Type': 'multipart/form-data' }})
+  }
     
   render(){ 
     return(

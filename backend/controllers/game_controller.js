@@ -24,13 +24,8 @@ function createBaraja(){
     return baraja
 }
 
-exports.postCrearJuego = async(req, res) =>{
-    let idGame = 0;
-    
-    Baraja.find()
-    .then(barajas => {
-        idGame = barajas.estimatedDocumentCount() + 1;
-    })
+exports.postCrearJuego = async (req, res) =>{
+    let idGame = await Baraja.estimatedDocumentCount() + 1
     
     const idCasa = new mongoose.Types.ObjectId();
     
@@ -44,10 +39,7 @@ exports.postCrearJuego = async(req, res) =>{
         mano : []
     })
     
-    jugadorCasa.save()
-    .then(response => {
-        console.log("Casa Creada");
-    })
+    await jugadorCasa.save()
     .catch(error => console.log(error));
     
     const nuevaBaraja = new Baraja({
@@ -56,12 +48,9 @@ exports.postCrearJuego = async(req, res) =>{
     })
     
     nuevaBaraja.save()
-    .then(response => {
-        console.log("Nueva Baraja Creada");
-    })
     .catch(error => console.log(error));
     
-    const nombreJugador = req.body.nomnbre;
+    const nombreJugador = req.body.nombre;
     const nuevoIDJugador = new mongoose.Types.ObjectId();
     
     const nuevoJugador = new Jugador({
@@ -74,27 +63,19 @@ exports.postCrearJuego = async(req, res) =>{
         mano : []
     })
     
-    nuevoJugador.save()
-    .then(response => {
-        console.log("Jugador Creada");
-    })
-    .catch(error => console.log(error));
+    await nuevoJugador.save()
     
-    Jugador.findById(nuevoIDJugador)
-    .then(jugador => {
-             Jugador.findById(idCasa)
-            .then(casa => {
-                res.render("", {
+    let jugador = await Jugador.findById(nuevoIDJugador)
+    
+    let casa = await Jugador.findById(idCasa)
+    
+    res.render("", {
                     jugador : jugador,
                     casa: casa
-                })
-            })
-            .catch(error =>  console.log(error));
     })
-    .catch(error =>  console.log(error));
 }
 
-exports.postUnirJuego = (req, res) =>{
+exports.postUnirJuego = async (req, res) =>{
     const idJuego = req.body.idJuego;
     const nombreJugador = req.body.nombre;
     const nuevoIDJugador = new mongoose.Types.ObjectId();
@@ -109,18 +90,16 @@ exports.postUnirJuego = (req, res) =>{
         mano : []
     })
     
-    nuevoJugador.save()
-    .then(response => {
-        console.log("Jugador Creada");
-        Jugador.findById(nuevoIDJugador)
-        .then(jugador => {
-            res.render("", {
-                jugador : jugador
-            })
-        })
-        .catch(error =>  console.log(error));
+    await nuevoJugador.save()
+    
+    let jugador = Jugador.findById(nuevoIDJugador)
+    
+    let casa = await Jugador.find({idJugo : idJuego, nombre : "Casa"})
+    
+    res.render("", {
+                jugador : jugador,
+                casa : casa
     })
-    .catch(error => console.log(error));
 }
 
 exports.postTerminarJuego = (req, res) => {
