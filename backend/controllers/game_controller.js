@@ -32,8 +32,10 @@ exports.postCrearJuego = async(req, res) =>{
         idGame = barajas.estimatedDocumentCount() + 1;
     })
     
+    const idCasa = new mongoose.Types.ObjectId();
+    
     const jugadorCasa = new Jugador({
-        _id : new mongoose.Types.ObjectId(),
+        _id : idCasa ,
         idJuego : idGame,
         nombre : "Casa",
         activo : true,
@@ -60,9 +62,10 @@ exports.postCrearJuego = async(req, res) =>{
     .catch(error => console.log(error));
     
     const nombreJugador = req.body.nomnbre;
+    const nuevoIDJugador = new mongoose.Types.ObjectId();
     
     const nuevoJugador = new Jugador({
-        _id : new mongoose.Types.ObjectId(),
+        _id : nuevoIDJugador,
         idJuego : idGame,
         nombre : nombreJugador,
         activo : true,
@@ -74,17 +77,30 @@ exports.postCrearJuego = async(req, res) =>{
     nuevoJugador.save()
     .then(response => {
         console.log("Jugador Creada");
-         //Redireccionar al juego
     })
     .catch(error => console.log(error));
+    
+    Jugador.findById(nuevoIDJugador)
+    .then(jugador => {
+             Jugador.findById(idCasa)
+            .then(casa => {
+                res.render("", {
+                    jugador : jugador,
+                    casa: casa
+                })
+            })
+            .catch(error =>  console.log(error));
+    })
+    .catch(error =>  console.log(error));
 }
 
 exports.postUnirJuego = (req, res) =>{
     const idJuego = req.body.idJuego;
     const nombreJugador = req.body.nombre;
+    const nuevoIDJugador = new mongoose.Types.ObjectId();
      
     const nuevoJugador = new Jugador({
-        _id : new mongoose.Types.ObjectId(),
+        _id : nuevoIDJugador,
         idJuego : idJuego,
         nombre : nombreJugador,
         activo : true,
@@ -96,6 +112,17 @@ exports.postUnirJuego = (req, res) =>{
     nuevoJugador.save()
     .then(response => {
         console.log("Jugador Creada");
+        Jugador.findById(nuevoIDJugador)
+        .then(jugador => {
+            res.render("", {
+                jugador : jugador
+            })
+        })
+        .catch(error =>  console.log(error));
     })
     .catch(error => console.log(error));
+}
+
+exports.postTerminarJuego = (req, res) => {
+    
 }
