@@ -1,31 +1,45 @@
-const mongoose = require("mongoose")
-const Baraja = require("../models/baraja_model.js")
-const Jugador = require("../models/jugador_model.js")
+const mongoose = require("mongoose");
+const Baraja = require("../models/baraja_model.js");
+const Jugador = require("../models/jugador_model.js");
 
-const Carta = require("./models/carta.js")
-const carta = Carta.carta
+const Carta = require("../models/carta");
+const carta = Carta.carta;
 
 
 function createBaraja(){
-    let mazo = ["Corazones", "Treboles", "Espadas", "Diamantes"]
-    let nombre = ["As", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    let baraja = []
+    let mazo = ["Corazones", "Treboles", "Espadas", "Diamantes"];
+    let nombre = ["As", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    let baraja = [];
     
     for(let i = 0; i < mazo.length; i++){
         for(let j = 0; j < nombre.length; j++){
-            let valor = j + 1
+            let valor = j + 1;
             if (valor > 10){
-                valor = 10
+                valor = 10;
             }
-            let newCard = new carta( mongoose.Types.ObjectId(), nombre[j], valor, mazo[i] )
-            baraja.push(newCard)
+            let newCard = new carta( mongoose.Types.ObjectId(), nombre[j], valor, mazo[i] );
+            baraja.push(newCard);
         }
     }
-    return baraja
+    return baraja;
 }
 
 exports.postCrearJuego = async (req, res) =>{
-    let idGame = await Baraja.estimatedDocumentCount() + 1
+    
+    console.log("Request to create a new Game Received!");
+    const nombreJugador = req.body.nombre;
+    if(!nombreJugador){
+        console.log("The name parameter is empty!");
+        return res.status(400).json({error: 'The name parameter is empty!'});
+    }
+    
+    let idGame = undefined;
+    try {
+        idGame = await Baraja.estimatedDocumentCount() + 1;
+    }catch (e){
+        console.log({e},'There was an error in saving the deck');
+        return res.status(500).json({error: 'There was an error in saving the deck'});
+    }
     
     const idCasa = new mongoose.Types.ObjectId();
     
@@ -37,20 +51,17 @@ exports.postCrearJuego = async (req, res) =>{
         isPlayer : false,
         score : 0,
         mano : []
-    })
+    });
     
-    await jugadorCasa.save()
-    .catch(error => console.log(error));
+    await jugadorCasa.save();
     
     const nuevaBaraja = new Baraja({
         idJuego : idGame,
         cartas : createBaraja()
-    })
+    });
     
-    nuevaBaraja.save()
-    .catch(error => console.log(error));
+    await nuevaBaraja.save();
     
-    const nombreJugador = req.body.nombre;
     const nuevoIDJugador = new mongoose.Types.ObjectId();
     
     const nuevoJugador = new Jugador({
@@ -61,23 +72,51 @@ exports.postCrearJuego = async (req, res) =>{
         isPlayer : true,
         score : 0,
         mano : []
-    })
+    });
     
-    await nuevoJugador.save()
+    try{
+        await nuevoJugador.save();
+    } catch (e){
+        console.log({e}, "There was an error saving the new Player");
+        return res.status(500).json({error: "There was an error saving the new Player"});
+    }
     
-    let jugador = await Jugador.findById(nuevoIDJugador)
+    let casa;
+    let jugador;
     
-    let casa = await Jugador.findById(idCasa)
+    try {
+        jugador = await Jugador.findById(nuevoIDJugador);
+    }
+    catch (e){
+       console.log({e}, "There was an error finding the Player");
+       return res.status(404).json({error: "There was an error finding the Player"}) ;
+    }
     
-    res.render("", {
-                    jugador : jugador,
-                    casa: casa
-    })
-}
+
+    try {
+        casa = await Jugador.findById(idCasa);
+    }catch (e){
+        console.log({e}, "There was an error finding the house");
+        return res.status(404).json({error: "There was an error finding the house!"});
+    }
+    
+    console.log("Sending the information when creating a new game");
+    return res.json({
+        jugador,
+        casa
+    });
+};
 
 exports.postUnirJuego = async (req, res) =>{
+    console.log("Getting a request to join a new Game");
     const idJuego = req.body.idJuego;
     const nombreJugador = req.body.nombre;
+    
+    if(!idJuego || !nombreJugador){
+        console.log("One of the parameters was empty please verify your request");
+        return res.status(400).json({error:"The request is not correct check your body parameters"});
+    }
+    
     const nuevoIDJugador = new mongoose.Types.ObjectId();
      
     const nuevoJugador = new Jugador({
@@ -88,20 +127,41 @@ exports.postUnirJuego = async (req, res) =>{
         isPlayer : true,
         score : 0,
         mano : []
-    })
+    });
     
-    await nuevoJugador.save()
+    try {
+        await nuevoJugador.save();
+    } catch (e){
+        console.log({e}, "There was an error when saving the new character");
+        return res.status(500).json({error: "There was an error saving the new character"});
+    }
     
-    let jugador = Jugador.findById(nuevoIDJugador)
+    let jugador;
+    let casa;
     
-    let casa = await Jugador.find({idJugo : idJuego, nombre : "Casa"})
+    try {
+        jugador = await Jugador.findById(nuevoIDJugador);
+    } catch (e){
+        console.log({e},"There was an error when finding the Player");
+        return res.status(404).json({error: "There was an error when finding the Playe"});
+    }
     
-    res.render("", {
-                jugador : jugador,
-                casa : casa
-    })
-}
+    try {
+        casa = await Jugador.find({idJugo : idJuego, nombre : "Casa"});
+    } catch (e){
+        console.log({e}, "There was an error finding the Player");
+        return res.status(404).json({error: "There was an error finding the Player"});
+        
+    }
+    
+    console.log("Sending the information to add new player");
+    return res.json({
+        jugador,
+        casa
+    });
+};
 
 exports.postTerminarJuego = (req, res) => {
     
-}
+};
+

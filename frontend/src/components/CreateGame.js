@@ -19,7 +19,7 @@ class CreateGame extends React.Component{
   crearJuego(nombre){
     axios({
       method: 'post',
-      url: 'myurl',
+      url: 'http://localhost:8081/juego/crear-juego',
       data: {'nombre' : nombre},
       headers: {'Content-Type': 'multipart/form-data' }})
   }

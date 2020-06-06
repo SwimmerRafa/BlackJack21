@@ -24,7 +24,7 @@ const jugadorShema = mongoose.Schema({
     },
     mano:[{
         idCarta:{
-            type: "",
+            type: mongoose.SchemaTypes.ObjectId,
             required: true
         },
         carta:{
