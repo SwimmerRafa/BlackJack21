@@ -116,6 +116,9 @@ exports.postUnirJuego = async (req, res) =>{
         console.log("One of the parameters was empty please verify your request");
         return res.status(400).json({error:"The request is not correct check your body parameters"});
     }
+    else{
+        console.log("Conection Successful")
+    }
     
     const nuevoIDJugador = new mongoose.Types.ObjectId();
      

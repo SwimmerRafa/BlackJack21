@@ -1,56 +1,95 @@
-import React, {useEffect, useState} from 'react';
-//import logo from './logo.svg';
-import './App.css';
-import Axios from 'axios'
-import FormularioCarta from "./components/formularioCarta.jsx"
+import React from 'react';
+import 'w3-css/w3.css';
+import axios from 'axios';
+import Logo from "./img/logo.png"
+import create from "./img/create.png"
+import { Link } from 'react-router-dom'
+import 'w3-css/w3.css';
 
-function Card(props) {
-    const [cartas, setCartas] = useState([])
-    const tirarCarta = (id) => {
-        setCartas(cartas.filter((e, idx) => {return idx !== id}))
-
+class Card extends React.Component{
+  constructor() {
+    super();
+    this.state = {
+    idJugador: "",
+    idJuego: "",
+    id: "",
+    carta: "",
+    valor: "",
+    mazo: ""
     }
-
-    const agregarCarta = (carta) => {
-        setCartas([...cartas, carta])
-    }
-
-
-    const cartasActuales = cartas.map((carta, idx) => {
-        return (
-            <div className="col-md-4" key={idx}>
-                <div className="card mt-4">
-                    <div className="card-header">
-                        <h3> Carta {idx + 1}</h3>
-                    </div>
-                    <div className="card-body">
-                        <h3>Mazo: {carta.mazo}</h3>
-                        <h4>Numero: {carta.numero}</h4>
-                        <h5>Valor: {carta.valor}</h5>
-                    </div>
-                    <div className="card-footer">
-                        <button type="button" onClick={() => tirarCarta(idx)} className="btn btn-danger">Tirar Carta</button>
-                    </div>
-                </div>
-            </div>
+  }
+  
+  crearCartas=()=>{
+    const {idJugador, idJuego} = this.state
+    axios({
+      method: 'post',
+      url: 'http://13.59.95.229:8081/jugador/cartas',
+      data: {'idJugador' : idJugador, "idJuego": idJuego},
+      headers: {'Content-Type': 'application/json' }})
+      .then(
+        res => {
+          console.log(res.data)
+        }
         )
-    })
+        .catch(e=>{
+          console.log(e)
+        })
+  }
+  
+  pedirCarta=()=>{
+    const {idJugador, idJuego} = this.state
+    axios({
+      method: 'post',
+      url: 'http://13.59.95.229:8081/jugador/pedir-carta',
+      data: {'idJugador' : idJugador, "idJuego": idJuego},
+      headers: {'Content-Type': 'application/json' }})
+      .then(
+        res => {
+          console.log(res.data)
+        }
+        )
+        .catch(e=>{
+          console.log(e)
+        })
+  }
+  
+  drawCard=(event)=>{
+    const {mazo} =  this.state
+    switch(mazo){
+      case "Corazones":
+        mazo = "♥"
+        break
+      case "Espadas":
+        mazo = "♠"
+        break
+      case "Treboles":
+        mazo = "♣"
+        break
+      case "Diamantes":
+        mazo = "♦"
+        break
+    }
+  }
+  
+  
+  render(){
+    const {mazo, carta} = this.state
+    return(
+      <div class="w3-card-4 width:50%;">
+        <header class="w3-container w3-blue w3-left">
+          <h1>{mazo}</h1>
+        </header>
 
-    return (
-        <div>
-            <nav className="navbar navbar-dark bg-dark">
-                <a className="navbar-brand" href="/">
-                    Número de Cartas <span className="badge badge-pill badge-light">
-                        {cartas.length}
-                    </span>
-                </a>
-            </nav>
-            <FormularioCarta onAgregarCarta={agregarCarta}/>
-            <div>
-                {cartasActuales}
-            </div>
+        <div class="w3-container w3-center">
+          <h1>{carta}</h1>
         </div>
+
+        <div class="w3-container w3-blue w3-right">
+           <h1>{mazo}</h1>
+        </div>
+      </div>
     )
+  }
 }
 
-export default App;
+export default Card

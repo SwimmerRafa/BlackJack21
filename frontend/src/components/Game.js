@@ -1,12 +1,60 @@
-import React from 'react';
-import { useHistory } from "react-router-dom";
+import React, {useEffect} from 'react';
+import { useHistory, Link } from "react-router-dom";
 import 'w3-css/w3.css';
+import Card from "./Card.js"
 import Logo from "./img/logo.png"
-import { Link } from 'react-router-dom'
+import axios from 'axios';
 
-function Game(){
+class Game extends React.Component{
+  constructor() {
+    super();
+    this.state = {
+      idJugador: "",
+      idJuego: "",
+      id: "",
+      carta: "",
+      valor: "",
+      mazo: ""
+    }
+  }
   
-  return(
+  componentDidMount=()=>{
+    const {idJugador, idJuego} = this.state
+    axios({
+      method: 'post',
+      url: 'http://13.59.95.229:8081/jugador/cartas',
+      data: {'idJugador' : idJugador, "idJuego": idJuego},
+      headers: {'Content-Type': 'application/json' }})
+      .then(
+        res => {
+          console.log(res.data)
+        }
+        )
+        .catch(e=>{
+          console.log(e)
+        })
+
+  }
+  
+  pedirCarta=()=>{
+    const {idJugador, idJuego} = this.state
+    axios({
+      method: 'post',
+      url: 'http://13.59.95.229:8081/jugador/pedir-carta',
+      data: {'idJugador' : idJugador, "idJuego": idJuego},
+      headers: {'Content-Type': 'application/json' }})
+      .then(
+        res => {
+          console.log(res.data)
+        }
+        )
+        .catch(e=>{
+          console.log(e)
+        })
+  }
+  
+  render(){
+    return(
     <div id="game" className="w3-mobile">
       
       <div className="w3-container w3-blue-gray">
@@ -47,8 +95,8 @@ function Game(){
       </div>
     </div>
   )
-    
-    
+  }
+  
 }
 
 export default Game

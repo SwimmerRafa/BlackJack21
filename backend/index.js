@@ -9,6 +9,9 @@ const app = express()
 const gameRoutes = require("./routes/game_routes");
 const jugadorRoutes = require("./routes/jugador_routes");
 
+app.use (bodyParser.urlencoded({extended: true}))
+app.use (bodyParser.json())
+
 app.use((req, res, next)=>{
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.setHeader("Access-Control-Allow-Methods", "GET", "POST")
@@ -16,7 +19,6 @@ app.use((req, res, next)=>{
     next()
 })
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/juego", gameRoutes)

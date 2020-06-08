@@ -14,15 +14,32 @@ class JoinGame extends React.Component{
       }
     }
     
-  crearJuego(idJuego, nombre){
+  unirseJuego=()=>{
+    const {user, pin_game} = this.state
     axios({
       method: 'post',
-      url: 'myurl',
-      data: {'nombre' : nombre, 'idJuego' : idJuego},
-      headers: {'Content-Type': 'multipart/form-data' }})
+      url: 'http://13.59.95.229:8081/juego/unirse-juego',
+      data: {'nombre' : user, "idJuego": pin_game},
+      headers: {'Content-Type': 'application/json' }})
+      .then(
+        res => {
+          console.log(res.data)
+        }
+        )
+        .catch(e=>{
+          console.log(e)
+        })
+  }
+  
+  inputHandler=(event)=>{
+    this.setState({[event.target.name]: event.target.value})
   }
     
   render(){ 
+    const {user, pin_game} = this.state
+    
+    let buttonClass = (user === "" || pin_game === "") ? 'w3-disabled' : ''
+    
     return(
         <div>
           <div className="w3-bar w3-grey">
@@ -51,13 +68,13 @@ class JoinGame extends React.Component{
               <form class="w3-container w3-margin">
                 
                 <label class="w3-text-blue-grey"><b>Nickname</b></label>
-                <input class="w3-margin-bottom w3-input w3-border w3-light-grey" type="text" required/>
+                <input class="w3-margin-bottom w3-input w3-border w3-light-grey" onChange={this.inputHandler} name="user" value={user} type="text" required/>
   
                 <label class="w3-text-blue-grey"><b>Game Pin</b></label>
-                <input class=" w3-margin-bottom w3-input w3-border w3-light-grey" type="number"/>
+                <input class=" w3-margin-bottom w3-input w3-border w3-light-grey" onChange={this.inputHandler} name="pin_game" value={pin_game} type="number" required/>
                 
                 <div className="w3-center">
-                  <Link to="/game" class="w3-btn w3-center w3-teal"><h5>JOIN</h5></Link>
+                  <a href="/game" onClick={this.unirseJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><h5>JOIN</h5></a>
                 </div>
               </form>
             </div>
