@@ -13,24 +13,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            casa: {
-                "_id": "",
-                "idJuego": -1,
-                "nombre": "",
-                "activo": false,
-                "isPlayer": false,
-                "score": 0,
-                "mano": []
-            },
-            jugador: {
-                "_id": "",
-                "idJuego": -1,
-                "nombre": "",
-                "activo": false,
-                "isPlayer": false,
-                "score": 0,
-                "mano": []
-            }
+            casa: undefined,
+            jugador: undefined
         }
     }
 
@@ -48,7 +32,7 @@ class App extends Component {
                     <Route exact path="/" component={Main}/>
                     <Route exact path="/create-game" render={(routerProps) => <CreateGame setGameProps={this.setGameProps} {...routerProps}/>}/>
                     <Route exact path="/join-game" component={JoinGame}/>
-                    <Route exact path="/game" render={(routerProps) => <Game setGameProps={this.setGameProps} {...routerProps}/>}/>
+                    <Route exact path="/game" render={(routerProps) => <Game game={this.state} {...routerProps}/>}/>
                 </Switch>
             </BrowserRouter>
         )
