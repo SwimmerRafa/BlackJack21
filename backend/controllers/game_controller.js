@@ -47,7 +47,7 @@ exports.postCrearJuego = async (req, res) =>{
         _id : idCasa ,
         idJuego : idGame,
         nombre : "Casa",
-        activo : true,
+        activo : false,
         isPlayer : false,
         score : 0,
         mano : []
@@ -68,7 +68,7 @@ exports.postCrearJuego = async (req, res) =>{
         _id : nuevoIDJugador,
         idJuego : idGame,
         nombre : nombreJugador,
-        activo : true,
+        activo : false,
         isPlayer : true,
         score : 0,
         mano : []
@@ -126,7 +126,7 @@ exports.postUnirJuego = async (req, res) =>{
         _id : nuevoIDJugador,
         idJuego : idJuego,
         nombre : nombreJugador,
-        activo : true,
+        activo : false,
         isPlayer : true,
         score : 0,
         mano : []
@@ -167,4 +167,3 @@ exports.postUnirJuego = async (req, res) =>{
 exports.postTerminarJuego = (req, res) => {
     
 };
-

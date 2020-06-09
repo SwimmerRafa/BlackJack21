@@ -53,7 +53,7 @@ exports.getCartas = async (req, res) =>{
     }
     
     try {
-        await Baraja.findOneAndUpdate({idJugador}, jugador);
+        await Jugador.findOneAndUpdate({idJugador}, jugador);
     }catch(e){
         console.log({e}, "There was an error when trying to save the hand for the player:" + idJugador );
         return res.status(500).json({error: "There was an error when trying to save the hand for the player"});
@@ -120,13 +120,48 @@ exports.getPedirCarta = async (req, res) =>{
     }
     
     try {
-        await Baraja.findOneAndUpdate({idJugador}, jugador);
+        await Jugador.findOneAndUpdate({idJugador}, jugador);
     }catch(e){
         console.log({e}, "There was an error when trying to save the hand for the player:" + idJugador );
         return res.status(500).json({error: "There was an error when trying to save the hand for the player"});
     }
     
     console.log("Sending the card to the client")
+    return res.json({
+        jugador
+    })
+}
+
+exports.postTerminarTurno = async (req, res) => {
+    if(!req.body){
+        console.log("Empty body we cannot get cards");
+        return res.status(400).json({error: "There was an empty body cannot process request"});
+    }
+    
+    const { idJugador, idJuego } = req.body;
+    
+    if(!idJugador || !idJuego){
+        console.log({idJugador, idJuego},"One of the parameters is empty cannot accept the request");
+        return res.status(400).json({error: "There was an error with the body that was sent. Missing one paramet"});
+    }
+    
+    let jugador;
+    try {
+        jugador = await Jugador.findById({_id: idJugador});
+    }catch (e){
+        console.log({e}, "There was an error finding the player with id: " + idJugador);
+        return res.status(404).json({error: "There was an error finding the player with the supplied id"});
+    }
+    
+    jugador.activo = false;
+    
+    try {
+        await Baraja.findOneAndUpdate({idJugador}, jugador);
+    }catch(e){
+        console.log({e}, "There was an error when trying to save the hand for the player:" + idJugador );
+        return res.status(500).json({error: "There was an error when trying to save the hand for the player"});
+    }
+    
     return res.json({
         jugador
     })
@@ -145,8 +180,4 @@ function shuffleArray(arrayCards){
       arrayCards[j] = temp
     }
     return;
-}
-
-function getRandomArbitrary(inta,intb){
-    
 }
