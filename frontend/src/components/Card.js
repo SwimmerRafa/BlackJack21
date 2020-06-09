@@ -23,17 +23,17 @@ class Card extends Component {
         }
 
         return (
-            <div className="w3-card-4 width-10 margin-rigth">
-                <header className="w3-container w3-blue w3-left card-border">
-                    <h1>{palo}</h1>
-                </header>
+            <div className="w3-mpbile w3-card-4 width-10 margin-rigth">
+                <div className="w3-mobile w3-container w3-white w3-left card-border">
+                    <h1 className="w3-mobile w3-left">{palo}</h1>
+                </div>
 
-                <div className="w3-container w3-center">
+                <div  className="w3-mobile w3-container w3-white w3-center">
                     <h1>{carta}</h1>
                 </div>
 
-                <div className="w3-container w3-blue w3-right card-border">
-                    <h1>{palo}</h1>
+                <div className="w3-mobile w3-container w3-white card-border">
+                    <h1 className="w3-right">{palo}</h1>
                 </div>
             </div>
         )

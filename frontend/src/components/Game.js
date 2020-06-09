@@ -131,7 +131,7 @@ class Game extends React.Component {
 
                     <div id="player-section">
                         <div id="PS" className="w3-mobile w3-container">
-                            <h1><strong>Player Name</strong></h1>
+                            <h1><strong>{jugador.name}</strong></h1>
                             <h3><strong>Score: {jugador.score}</strong></h3>
                             <div className="is-row">
                                 {jugador.mano && (
