@@ -29,7 +29,7 @@ class Card extends Component {
                 </div>
 
                 <div  className="w3-mobile w3-container w3-white w3-center">
-                    <h1>{carta}</h1>
+                    <h1><strong>{carta}</strong></h1>
                 </div>
 
                 <div className="w3-mobile w3-container w3-white card-border">

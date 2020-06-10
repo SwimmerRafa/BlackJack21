@@ -1,5 +1,5 @@
 const hostnames = {
-    awsip: '18.217.125.8:8081'
+    awsip: '18.222.221.184:8081'
 }
 
 export {hostnames};

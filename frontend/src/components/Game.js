@@ -192,29 +192,34 @@ class Game extends React.Component {
                             <i className="fas fa-home"/>
                         </Link>
                     </div>
+                    
                     <div  className="w3-center">
-                        <h3>21 Game</h3>
+                        <h1>21 Game</h1>
                     </div>
-                    <div className="w3-left w3-margin-left">
-                        <h3 >Game Pin: {casa.idJuego}</h3>
-                        <h3>Number of players in the room: {`${jugadores.length}`}</h3>
-                        <h5> Players Tags:</h5>
+                </div>
+                
+                <div className="w3-container w3-sand">
+                    <div className="w3-left w3-margin-left w3-sand">
+                        <h3><strong>Game Pin: {casa.idJuego} </strong></h3>
+                        <h3><strong>Number of players in the room: {`${jugadores.length}`}</strong></h3>
+                        <h4> <strong>Players Tags: </strong></h4>
                         {jugadores.map((element, index) => {
                             const { activo, nombre } = element
-                            return <span className={element.activo ? "w3-green" : "w3-red"}>{index + 1}: {nombre} </span>
+                            return <span className={element.activo ? "w3-green" : "w3-red"}>{index + 1}: {nombre}</span>
                         })}
                     </div>
-                    <div className="w3-right w3-margin-right">
-                        {isGameDone && <h1>{resultMessage}</h1>}
+                    
+                    <div className="w3-center w3-margin-right">
+                        {isGameDone && <h1 className="w3-animate-zoom w3-display-bottommiddle w3-deep-orange w3-text-black"> <strong>{resultMessage}</strong></h1>}
                     </div>
                 </div>
 
                 <div id="game-screen">
-                    <div id="dealer-section">
+                    <div style={{backgroundColor: "#0f6b5a"}}>
                         <div className="w3-container w3-mobile">
-                            <h1><strong>Dealer</strong></h1>
-                            <h3><strong>Score: {casa.score}</strong></h3>
-                            <div className="is-row">
+                            <h2 className="w3-text-white"><strong>Dealer</strong></h2>
+                            <h3 className="w3-text-white"><strong>Score: {casa.score}</strong></h3>
+                            <div className="w3-container is-row">
                                 {casa.mano && (
                                     <>
                                         {casa.mano.map((carta) => (
@@ -226,11 +231,12 @@ class Game extends React.Component {
                         </div>
                     </div>
 
-                    <div id="player-section">
+                    <div style={{backgroundColor: "#0e6253"}}>
                         <div id="PS" className="w3-mobile w3-container">
-                            <h1><strong>{jugador.name}</strong></h1>
-                            <h3><strong>Score: {jugador.score}</strong></h3>
-                            <div className="is-row">
+                            <h2 className="w3-text-white"><strong>{jugador.nombre}</strong></h2>
+                            <h3 className="w3-text-white"><strong>Score: {jugador.score}</strong></h3>
+                            
+                            <div className="w3-container is-row">
                                 {jugador.mano && (
                                     <>
                                         {jugador.mano.map((carta) => (
@@ -239,16 +245,16 @@ class Game extends React.Component {
                                     </>
                                 )}
                             </div>
-                        </div>
-
-
-                        <div id="button-id">
-                            <div className="w3-bar">
-                                <button id="hit" className="w3-mobile 3-margin w3-btn w3-round-large" onClick={this.pedirCarta} disabled={!jugador.activo}>Hit</button>
-                                <button id="stand" className="w3-mobile w3-margin w3-btn w3-round-large" onClick={this.acabarTurno} disabled={!jugador.activo}>Stand</button>
+                            
+                            <div className="w3-container w3-center">
+                                <div className="w3-bar">
+                                    <button id="hit" className="w3-mobile 3-margin w3-btn w3-round-large" onClick={this.pedirCarta} disabled={!jugador.activo}>Hit</button>
+                                    <button id="stand" className="w3-mobile w3-margin w3-btn w3-round-large" onClick={this.acabarTurno} disabled={!jugador.activo}>Stand</button>
+                                 </div>
                             </div>
+                            
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
