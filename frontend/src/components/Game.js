@@ -187,15 +187,10 @@ class Game extends React.Component {
             <div id="game" className="w3-mobile">
 
                 <div className="w3-container w3-blue-gray">
-                    <div className="w3-left w3-margin-left">
-                        <Link to="/" className="w3-left w3-bar-item w3-btn w3-blue-grayy">
-                            <i className="fas fa-home"/>
-                        </Link>
-                    </div>
-                    
-                    <div  className="w3-center">
-                        <h1>21 Game</h1>
-                    </div>
+                    <Link to="/" className="w3-left w3-bar-item w3-btn w3-blue-grayy">
+                            <i className="w3-xxlarge fas fa-home"/>
+                    </Link>
+                        <h1 className = "w3-center">21 Game</h1>
                 </div>
                 
                 <div className="w3-container w3-sand">
@@ -205,7 +200,7 @@ class Game extends React.Component {
                         <h4> <strong>Players Tags: </strong></h4>
                         {jugadores.map((element, index) => {
                             const { activo, nombre } = element
-                            return <span className={element.activo ? "w3-green" : "w3-red"}>{index + 1}: {nombre}</span>
+                            return <span className={element.activo ? "w3-green" : "w3-red"}> {index + 1}: {nombre} </span>
                         })}
                     </div>
                     
@@ -228,6 +223,9 @@ class Game extends React.Component {
                                     </>
                                 )}
                             </div>
+                        </div>
+                        <div>
+                            <br></br>
                         </div>
                     </div>
 
