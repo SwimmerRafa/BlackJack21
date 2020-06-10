@@ -3,22 +3,83 @@ import {Link} from "react-router-dom";
 import 'w3-css/w3.css';
 import axios from 'axios';
 import Card from "./Card"
+import { hostnames } from '../config/hosts'
 
 class Game extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            jugador: {},
-            casa: {},
-            initGame: true
+    state = {
+        casa: this.props.game.casa ? this.props.game.casa : {},
+        jugador: {},
+        jugadores: [],
+        interValPlayers: undefined,
+        isGameDone: false,
+        resultMessage: ''
+    }
+    
+
+    componentDidMount(){
+        const { game } = this.props;
+        if(!this.props.game.casa){
+           this.props.history.push("/create-game");
+           return;
         }
+    
+        
+        if(game && game.jugador){
+            this.repartirCartasJugador(game.jugador._id, game.jugador.idJuego)
+            this.setState({
+                interValPlayers: setInterval(this.conseguirInformacionDeJugadores, 10000)
+            })
+        }
+    }
+    
+    
+    getGameResults = () => {
+        const { jugador } = this.state;
+        axios({
+            method: 'post',
+            url: `http://${hostnames.awsip}/juego/terminar-juego`,
+            data: {
+                "idJuego": jugador.idJuego
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => {
+            const { casa } = res.data;
+            const { jugador } = this.state;
+            const casaScore = casa.score;
+            console.log(casaScore);
+            const jugadorScore = jugador.score;
+            console.log(jugadorScore)
+            let resultMessage = 'GAME OVER!!!';
+            
+            if (jugadorScore === 21){
+                resultMessage = "YOU WIN!"
+            }
+            if(jugadorScore < 21 && jugadorScore > casaScore){
+                resultMessage = "YOU WIN!"
+            }
+            
+            if(jugadorScore > 21){
+                resultMessage = "YOU LOST!"
+            }
+            
+            if(jugadorScore < 21 && casaScore > jugador ){
+                resultMessage = "YOU LOST!"
+            }
+
+            this.setState({casa: casa, resultMessage})
+        }).catch((err) => {
+            console.log(err)
+        })
+        
     }
 
     repartirCartasJugador = (idJugador, idJuego) => {
         axios({
             method: 'post',
-            url: `http://${process.env.REACT_APP_SERVER}/jugador/cartas`,
+            url: `http://${hostnames.awsip}/jugador/cartas`,
             data: {
                 "idJugador": idJugador,
                 "idJuego": idJuego
@@ -27,38 +88,58 @@ class Game extends React.Component {
                 "Content-Type": "application/json"
             }
         }).then((res) => {
-            console.log(res.data)
             this.setState({jugador: res.data.jugador})
         }).catch((err) => {
             console.log(err)
         })
-    }
-
-    repartirCartasCasa = (idJugador, idJuego) => {
+        // Refactor this
         axios({
-            method: 'post',
-            url: `http://${process.env.REACT_APP_SERVER}/jugador/cartas`,
-            data: {
-                "idJugador": idJugador,
-                "idJuego": idJuego
-            },
+            method: 'get',
+            url: `http://${hostnames.awsip}/juego/jugadores/${idJuego}`,
             headers: {
                 "Content-Type": "application/json"
             }
         }).then((res) => {
-            console.log(res.data)
-            this.setState({casa: res.data.jugador})
+            const { publicInformationOfPlayers } = res.data;
+            this.setState({jugadores: publicInformationOfPlayers})
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+    
+    conseguirInformacionDeJugadores = () => {
+        const {jugador} = this.state;
+        axios({
+            method: 'get',
+            url: `http://${hostnames.awsip}/juego/jugadores/${jugador.idJuego}`,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => {
+            const { publicInformationOfPlayers } = res.data;
+            this.setState({jugadores: publicInformationOfPlayers})
+            const isGameDone = publicInformationOfPlayers.every(element => !element.activo) 
+            if(isGameDone){
+                clearInterval(this.state.interValPlayers);
+                this.setState({
+                    isGameDone: true
+                })
+                this.getGameResults();
+            }
         }).catch((err) => {
             console.log(err)
         })
     }
 
+
     pedirCarta = () => {
         const {jugador} = this.state
-
+        if(!jugador.activo){
+            return;
+        }
         axios({
             method: 'post',
-            url: `http://${process.env.REACT_APP_SERVER}/jugador/pedir-carta`,
+            url: `http://${hostnames.awsip}/jugador/pedir-carta`,
             data: {
                 "idJugador": jugador._id,
                 "idJuego": jugador.idJuego
@@ -67,15 +148,32 @@ class Game extends React.Component {
                 "Content-Type": "application/json"
             }
         }).then((res) => {
-            console.log(res.data.jugador.mano)
-            console.log(jugador)
+            const { jugador } = res.data;
+            this.setState({jugador: jugador})
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+    
+    acabarTurno = () => {
 
-            let tempJugador = jugador
-            tempJugador.mano.push(res.data.jugador.mano[0])
-
-            console.log(tempJugador)
-
-            this.setState({jugador: tempJugador})
+        const { jugador } = this.state;
+        if(!jugador.activo){
+            return;
+        }
+        axios({
+            method: 'post',
+            url: `http://${hostnames.awsip}/jugador/terminar-turno`,
+            data: {
+                "idJugador": jugador._id,
+                "idJuego": jugador.idJuego
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => {
+           console.log(res.data);
+           this.setState({jugador: res.data.jugador})
         }).catch((err) => {
             console.log(err)
         })
@@ -83,33 +181,32 @@ class Game extends React.Component {
 
     render() {
         const {game} = this.props
-        const {jugador, casa, initGame} = this.state
-
-        if (game.casa && game.jugador && initGame) {
-            this.setState({
-                jugador: game.jugador,
-                casa: game.casa,
-                initGame: false
-            }, () => {
-                this.repartirCartasCasa(game.casa._id, game.casa.idJuego)
-                this.repartirCartasJugador(game.jugador._id, game.jugador.idJuego)
-            })
-        }
-
+        const {jugador, casa, jugadores, resultMessage, isGameDone} = this.state
+        const shouldRenderResultMessage = isGameDone
         return (
             <div id="game" className="w3-mobile">
 
                 <div className="w3-container w3-blue-gray">
-                    <h1 className="w3-center">
-                        <h3>
-                            <Link to="/" className="w3-left w3-bar-item w3-btn w3-blue-grayy">
-                                <i className="fas fa-home"/>
-                            </Link>
-                        </h3>
-                        <strong>21 Game</strong>
-                        <h3 className="w3-right w3-margin-right">Game Pin: {casa.idJuego}</h3>
-                    </h1>
-                    <h5>Players in the room: 1</h5>
+                    <div className="w3-left w3-margin-left">
+                        <Link to="/" className="w3-left w3-bar-item w3-btn w3-blue-grayy">
+                            <i className="fas fa-home"/>
+                        </Link>
+                    </div>
+                    <div  className="w3-center">
+                        <h3>21 Game</h3>
+                    </div>
+                    <div className="w3-left w3-margin-left">
+                        <h3 >Game Pin: {casa.idJuego}</h3>
+                        <h3>Number of players in the room: {`${jugadores.length}`}</h3>
+                        <h5> Players Tags:</h5>
+                        {jugadores.map((element, index) => {
+                            const { activo, nombre } = element
+                            return <span className={element.activo ? "w3-green" : "w3-red"}>{index + 1}: {nombre} </span>
+                        })}
+                    </div>
+                    <div className="w3-right w3-margin-right">
+                        {isGameDone && <h1>{resultMessage}</h1>}
+                    </div>
                 </div>
 
                 <div id="game-screen">
@@ -144,10 +241,11 @@ class Game extends React.Component {
                             </div>
                         </div>
 
+
                         <div id="button-id">
                             <div className="w3-bar">
-                                <button id="hit" className="w3-mobile 3-margin w3-btn w3-round-large" onClick={this.pedirCarta}>Hit</button>
-                                <button id="stand" className="w3-mobile w3-margin w3-btn w3-round-large">Stand</button>
+                                <button id="hit" className="w3-mobile 3-margin w3-btn w3-round-large" onClick={this.pedirCarta} disabled={!jugador.activo}>Hit</button>
+                                <button id="stand" className="w3-mobile w3-margin w3-btn w3-round-large" onClick={this.acabarTurno} disabled={!jugador.activo}>Stand</button>
                             </div>
                         </div>
 

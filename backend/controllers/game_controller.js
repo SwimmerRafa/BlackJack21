@@ -43,32 +43,45 @@ exports.postCrearJuego = async (req, res) =>{
     
     const idCasa = new mongoose.Types.ObjectId();
     
+    const baraja = createBaraja();
+    
+    shuffleArray(baraja);
+    
+    const casaCards = [baraja.pop(), baraja.pop()];
+        
+    const scoreCasa = casaCards.reduce((sum, currenValue) =>{
+        return sum + currenValue.valor
+    },0)
+
     const jugadorCasa = new Jugador({
         _id : idCasa ,
         idJuego : idGame,
         nombre : "Casa",
-        activo : false,
+        activo : true,
         isPlayer : false,
-        score : 0,
-        mano : []
+        score : scoreCasa,
+        mano : casaCards
     });
     
     await jugadorCasa.save();
     
     const nuevaBaraja = new Baraja({
         idJuego : idGame,
-        cartas : createBaraja()
+        cartas : baraja
     });
     
-    await nuevaBaraja.save();
-    
+    try {
+        await nuevaBaraja.save();
+    }catch(e){
+        console.log(e);
+    }
     const nuevoIDJugador = new mongoose.Types.ObjectId();
     
     const nuevoJugador = new Jugador({
         _id : nuevoIDJugador,
         idJuego : idGame,
         nombre : nombreJugador,
-        activo : false,
+        activo : true,
         isPlayer : true,
         score : 0,
         mano : []
@@ -116,17 +129,16 @@ exports.postUnirJuego = async (req, res) =>{
         console.log("One of the parameters was empty please verify your request");
         return res.status(400).json({error:"The request is not correct check your body parameters"});
     }
-    else{
-        console.log("Conection Successful")
-    }
-    
+
+    console.log("Conection Successful")
+
     const nuevoIDJugador = new mongoose.Types.ObjectId();
      
     const nuevoJugador = new Jugador({
         _id : nuevoIDJugador,
         idJuego : idJuego,
         nombre : nombreJugador,
-        activo : false,
+        activo : true,
         isPlayer : true,
         score : 0,
         mano : []
@@ -150,7 +162,7 @@ exports.postUnirJuego = async (req, res) =>{
     }
     
     try {
-        casa = await Jugador.find({idJugo : idJuego, nombre : "Casa"});
+        casa = await Jugador.findOne({idJuego : idJuego, nombre: "Casa" });
     } catch (e){
         console.log({e}, "There was an error finding the Player");
         return res.status(404).json({error: "There was an error finding the Player"});
@@ -164,6 +176,68 @@ exports.postUnirJuego = async (req, res) =>{
     });
 };
 
-exports.postTerminarJuego = (req, res) => {
-    
+exports.postTerminarJuego = async (req, res) => {
+    const idJuego = req.body.idJuego;
+    console.log("Terminar Juego!!!")
+    if(!idJuego ){
+        console.log("One of the parameters was empty please verify your request");
+        return res.status(400).json({error:"The request is not correct check your body parameters"});
+    }
+    let casa;
+    try {
+        casa = await Jugador.findOne({idJuego : idJuego, nombre: "Casa" });
+    } catch (e){
+        console.log({e}, "There was an error finding the Player");
+        return res.status(404).json({error: "There was an error finding the Player"});
+        
+    }
+    return res.json({
+        casa
+    })
 };
+
+exports.getJugadoresEnJuego = async (req,res) => {
+
+    console.log("Received Request for Players Info");
+    const idJuego = req.params.idJuego;
+    if(!idJuego){
+        console.log("One of the parameters was empty please verify your request");
+        return res.status(400).json({error:"The request is not correct check your body parameters"});
+    }
+    console.log();
+    let players;
+    try {
+        players = await Jugador.find({idJuego : idJuego });
+    } catch (e){
+        console.log({e}, "There was an error finding the Player");
+        return res.status(404).json({error: "There was an error finding the Players for the giving id"});
+    }
+    
+    const playingPlayers = players.filter((element) => element.isPlayer);
+    const publicInformationOfPlayers = playingPlayers.map((element) => {
+        return {
+            activo: element.activo,
+            nombre: element.nombre,
+            _id: element._id
+        }
+    })
+    
+    return res.status(200).json({publicInformationOfPlayers});
+    
+    
+}
+
+function shuffleArray(arrayCards){
+    
+    if(!arrayCards || arrayCards.length === 0){
+        return;
+    }
+    
+    for(let i = arrayCards.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * i)
+      const temp = arrayCards[i]
+      arrayCards[i] = arrayCards[j]
+      arrayCards[j] = temp
+    }
+    return;
+}

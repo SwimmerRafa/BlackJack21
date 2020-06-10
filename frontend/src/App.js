@@ -24,6 +24,7 @@ class App extends Component {
             jugador: game.jugador
         })
     }
+    
 
     render() {
         return (
@@ -31,7 +32,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Main}/>
                     <Route exact path="/create-game" render={(routerProps) => <CreateGame setGameProps={this.setGameProps} {...routerProps}/>}/>
-                    <Route exact path="/join-game" component={JoinGame}/>
+                    <Route exact path="/join-game" render={(routerProps) => <JoinGame setGameProps={this.setGameProps} {...routerProps} /> } />
                     <Route exact path="/game" render={(routerProps) => <Game game={this.state} {...routerProps}/>}/>
                 </Switch>
             </BrowserRouter>

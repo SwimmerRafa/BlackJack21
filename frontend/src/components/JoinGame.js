@@ -4,6 +4,7 @@ import axios from 'axios';
 import Logo from "./img/logo.png"
 import create from "./img/create.png"
 import {Link} from 'react-router-dom'
+import { hostnames } from '../config/hosts'
 
 class JoinGame extends React.Component {
     constructor(props) {
@@ -15,16 +16,14 @@ class JoinGame extends React.Component {
         }
     }
 
-    unirseJuego = () => {
+    unirseJuego = (e) => {
+        e.preventDefault();
         const {user, pin_game} = this.state
-
-        axios({
-            method: 'post',
-            url: `http://${process.env.REACT_APP_SERVER}/juego/unirse-juego`,
-            data: {'nombre': user, "idJuego": pin_game},
-            headers: {'Content-Type': 'application/json'}
-        }).then((res) => {
+        axios.post(`http://${hostnames.awsip}/juego/unirse-juego` ,{'nombre': user, "idJuego": pin_game}).then((res) => {
             console.log(res.data)
+            this.props.setGameProps(res.data);
+            console.log(this.props);
+            this.props.history.push("/game");
         }).catch((e) => {
             console.log(e)
         })
@@ -75,7 +74,7 @@ class JoinGame extends React.Component {
                                value={pin_game} type="number" required/>
 
                         <div className="w3-center">
-                            <a href="/game" onClick={this.unirseJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><h5>JOIN</h5></a>
+                            <button onClick={this.unirseJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><a>JOIN</a></button>
                         </div>
                     </form>
                 </div>

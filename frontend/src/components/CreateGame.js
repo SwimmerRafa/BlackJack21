@@ -4,6 +4,7 @@ import axios from 'axios';
 import Logo from "./img/logo.png"
 import create from "./img/create.png"
 import {Link} from 'react-router-dom'
+import { hostnames } from '../config/hosts'
 
 class CreateGame extends React.Component {
     constructor(props) {
@@ -14,13 +15,13 @@ class CreateGame extends React.Component {
         }
     }
 
-    crearJuego = () => {
+    crearJuego = (e) => {
+        e.preventDefault();
         const {user} = this.state
         const {setGameProps} = this.props
-
         axios({
             method: 'post',
-            url: `http://${process.env.REACT_APP_SERVER}/juego/crear-juego`,
+            url: `http://${hostnames.awsip}/juego/crear-juego`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -29,6 +30,7 @@ class CreateGame extends React.Component {
             }
         }).then((res) => {
             setGameProps(res.data)
+           this.props.history.push("/game");
         }).catch((err) => {
             console.log(err)
         })
@@ -75,7 +77,7 @@ class CreateGame extends React.Component {
                                value={user} type="text" required/>
 
                         <div className="w3-center">
-                            <Link to="/game" onClick={this.crearJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><h5>JOIN</h5></Link>
+                            <button  onClick={this.crearJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><a>JOIN</a></button>
                         </div>
                     </form>
                 </div>
