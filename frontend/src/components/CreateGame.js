@@ -51,8 +51,8 @@ class CreateGame extends React.Component {
                     <Link to="/" className="w3-bar-item w3-button w3-grey">
                         <img className="w3-bar-item" src={Logo} width="50" height="50" alt="logo"/>
                     </Link>
-                    <Link Link to="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
-                    <Link Link to="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
+                    <Link  to="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
+                    <Link  to="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
                     <button className="w3-bar-item w3-button w3-round w3-right w3-blue w3-section w3-margin-right">
                         <a href="https://github.com/SwimmerRafa/BlackJack21" className="button is-info">
                             <i className="w3-xlarge fab fa-github"/>
@@ -66,7 +66,7 @@ class CreateGame extends React.Component {
                 </div>
 
                 <div className="w3-container w3-center w3-margin">
-                    <img style={{width: "100%", "max-width": "500px"}} src={create} className="w3-round  w3-image" alt="Norway"/>
+                    <img style={{width: "100%", "maxWidth": "500px"}} src={create} className="w3-round  w3-image" alt="Norway"/>
                 </div>
 
                 <div className="w3-container">
@@ -77,7 +77,7 @@ class CreateGame extends React.Component {
                                value={user} type="text" required/>
 
                         <div className="w3-center">
-                            <button  onClick={this.crearJuego} class={`w3-btn w3-center w3-teal ${buttonClass}`}><a>JOIN</a></button>
+                            <button  onClick={this.crearJuego} className={`w3-btn w3-center w3-teal ${buttonClass}`}><a>JOIN</a></button>
                         </div>
                     </form>
                 </div>

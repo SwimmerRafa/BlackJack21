@@ -11,8 +11,8 @@ function Main() {
                 <Link to="/" className="w3-bar-item w3-button w3-grey">
                     <img className="w3-bar-item" src={Logo} width="50" height="50" alt="logo"/>
                 </Link>
-                <Link Link to="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
-                <Link Link to="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
+                <Link to="/create-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Create Game</Link>
+                <Link to="/join-game" className="w3-section w3-bar-item w3-button w3-mobile w3-grey">Join Game</Link>
                 <button className="w3-bar-item w3-button w3-round w3-right w3-blue w3-section w3-margin-right">
                     <a href="https://github.com/SwimmerRafa/BlackJack21" className="button is-info">
                         <i className="fab fa-github"/>
