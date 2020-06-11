@@ -81,8 +81,7 @@ class CreateGame extends React.Component {
                         </div>
                     </form>
                 </div>
-
-
+                
             </div>
         )
     }

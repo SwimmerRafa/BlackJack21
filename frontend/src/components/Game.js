@@ -52,7 +52,7 @@ class Game extends React.Component {
             console.log(casaScore);
             const jugadorScore = jugador.score;
             console.log(jugadorScore)
-            let resultMessage = 'GAME OVER!!!';
+            let resultMessage = '';
             
             if (jugadorScore === 21){
                 resultMessage = "YOU WIN!"
@@ -65,8 +65,25 @@ class Game extends React.Component {
                 resultMessage = "YOU LOST!"
             }
             
-            if(jugadorScore < 21 && casaScore > jugador ){
+            
+            if(jugadorScore <= 21 && casaScore > jugadorScore ){
                 resultMessage = "YOU LOST!"
+            }
+            
+            if(jugadorScore <= 21 && jugadorScore > casaScore){
+                resultMessage = "YOU  WIN!"
+            }
+            
+            if(jugadorScore <= 21 && casaScore > 21){
+                resultMessage = "YOU  WIN!"
+            }
+            
+            if(jugadorScore > 21 && casaScore <= 21){
+                resultMessage = "YOU LOST"
+            }
+            
+            if(jugadorScore === casaScore){
+                resultMessage = "It´s a TIE !"
             }
 
             this.setState({casa: casa, resultMessage})
