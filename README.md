@@ -8,12 +8,12 @@ Desarollo de una aplicación web que implemente el juego de BlackJack21 (ver reg
 
 ## Instalación y ejecución del proyecto
 Una vez descargado el repositorio sigue estos pasos.
-### FRONTEND
+### Frontend
 Para inicializarlo se debe estar dentro de "frontend/" y correr el comando:
-`npm start`
-### BACKEND
+#### `npm start`
+### Backend
 Para inicializarlo se debe estar dentro de "backend/" y correr el comando:
-`npx nodemon index.js`
+#### `npx nodemon index.js`
 
 ## Servidor web (backend)
 Se implemento como un conjunto de servicios Web escritos en Node y el framework de Express.
@@ -23,7 +23,7 @@ El estado de cada juego se almacena en una base de datos de MonogoDB y su acceso
 El servidor es responsable de contener y administrar todo el estado de los juegos. Los clientes pueden solicitar en cualquier momento al servidor toda la información que tengan permitido conocer (cuáles son sus cartas, cuál es su puntaje, de quién es el turno actual, el puntaje de la casa, etc.)
 
 Se crea dentro del folder "backend/" con el comando: 
-`npm init -y`
+#### `npm init -y`
 
 ## Cliente web (frontend)
 Se desarrollo una SPA (Single-Page Application) responsiva usando HTML, W3.CSS, JavaScript y React.
@@ -31,4 +31,4 @@ Se desarrollo una SPA (Single-Page Application) responsiva usando HTML, W3.CSS, 
 Durante el juego la interacción del cliente con el servidor se realiza utilizando React. Como formato de intercambio de datos se usa JSON.
 
 Se crea dentro de la raiz del proyecto con el comando: 
-`npx create-react-app frontend`
+#### `npx create-react-app frontend`
