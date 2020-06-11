@@ -8,6 +8,7 @@ Desarollo de una aplicación web que implemente el juego de BlackJack21 (ver reg
 
 ## Instalación y ejecución del proyecto
 Una vez descargado el repositorio sigue estos pasos.
+### Configuración de la ip del backend en el frontend
 Cambia la linea 3 del archivo `frontend/src/config/hosts.js` por la ip publica del server del backend, seguida del puerto 8081
 #### `ipPublica:8081`
 ### Frontend
