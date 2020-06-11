@@ -79,15 +79,6 @@ class JoinGame extends React.Component {
                     </form>
                 </div>
 
-                <div className="footer2 w3-grey">
-                    <p>
-                        <strong>Developed </strong> by
-                        <a style={{color: "paleturquoise"}} href="https://www.linkedin.com/in/rafael-moreno-ca%C3%B1as-aba58a1a6/"> Rafael Moreno</a>,
-                        <a style={{color: "paleturquoise"}} href="https://www.linkedin.com"> Ricardo Velazquez </a> and
-                        <a style={{color: "paleturquoise"}} href="https://www.linkedin.com"> Eric Gomez</a>
-                    </p>
-                </div>
-
             </div>
         )
     }
