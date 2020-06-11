@@ -11,15 +11,15 @@ Una vez descargado el repositorio sigue estos pasos.
 ### Configuración de la ip del backend en el frontend
 Cambia la linea 3 del archivo `frontend/src/config/hosts.js` por la ip publica del server del backend, seguida del puerto 8081
 #### `ipPublica:8081`
-### Frontend
+### Iniciar frontend
 Para inicializarlo se debe estar dentro de `frontend/` y correr el comando:
 #### `$ npm start`
-### Backend
+### Iniciar backend
 Para inicializarlo se debe estar dentro de `backend/` y correr el comando:
 #### `$ npx nodemon index.js`
 
 ## Troubleshooting 
-Si al iniciar el "backend" o el "frontend" la consola te mostro un error de dependencias, dentro de cada una ejecuta el siguiente comando:
+Si al iniciar el "backend" o el "frontend" la consola te mostro un error de dependencias, dentro de la respectiva carpeta una ejecuta el siguiente comando:
 #### `$ npm install package.json`
 
 ## Servidor web (backend)
